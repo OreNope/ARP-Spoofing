@@ -5,7 +5,7 @@ My implementation of the ARP Spoofing attack (aka ARP Cache Poisoning)
 
 My implementation supports:
 - ARP Spoofing via arp reply
-- Restoring the `ARP Table` when to attack ends
+- Restoring the `ARP Table` when the attack ends
 
 ### How To Use
 arp-spoofer.py expects to get the ip address via command-line arguments in this order:
