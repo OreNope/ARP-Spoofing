@@ -1,6 +1,7 @@
 # ARP-Spoofing
 My implementation of the ARP Spoofing attack (aka ARP Cache Poisoning)
-*for educational purposes only*
+
+**for educational purposes only**
 
 My implementation supports:
 - ARP Spoofing via arp reply
